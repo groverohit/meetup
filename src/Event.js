@@ -15,7 +15,7 @@ class Event extends Component {
 
   render() {
     return (
-      <div className="event">
+      <div className="Event">
         <div className="event__Overview">
           <p className="event__Overview--localTime">
             {this.props.event.local_time}
@@ -24,9 +24,11 @@ class Event extends Component {
             {this.props.event.local_date}
           </p>
           <p className="event__Overview--name">{this.props.event.name}</p>
-          <p className="event__Overview--groupName">
-            {this.props.event.group.name}
-          </p>
+          {this.props.event.group && this.props.event.group.name && (
+            <p className="event__Overview--groupName">
+              {this.props.event.group.name}
+            </p>
+          )}
           <p className="event__Overview--peopleGoing">
             {this.props.event.yes_rsvp_count}
           </p>

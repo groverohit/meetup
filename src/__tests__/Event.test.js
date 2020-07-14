@@ -49,11 +49,11 @@ describe("<Event /> component", () => {
   });
 
   test("Event wrapping div is rendered", () => {
-    expect(EventWrapper.find(".event")).toHaveLength(1);
+    expect(EventWrapper.find(".Event")).toHaveLength(1);
   });
 
   test("Event wrapping div should just contain overview", () => {
-    expect(EventWrapper.find(".event").children()).toHaveLength(1);
+    expect(EventWrapper.find(".Event").children()).toHaveLength(1);
   });
 
   test("test that event__Overview is rendered", () => {
