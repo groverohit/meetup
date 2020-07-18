@@ -102,6 +102,12 @@ async function getEvents(lat, lon, page) {
     }
     return events2;
   }
+
+  if (!navigator.onLine) {
+    const events = localStorage.getItem("lastEvents");
+    return JSON.parse(events);
+  }
+
   const token = await getAccessToken();
 
   if (token) {
@@ -120,7 +126,15 @@ async function getEvents(lat, lon, page) {
       url += "&lat=" + lat + "&lon=" + lon + "&page=" + page;
     }
     const result = await axios.get(url);
-    return result.data.events;
+    // return result.data.events;
+
+    const events = result.data.events;
+    if (events.length) {
+      // Check if the events exist
+      localStorage.setItem("lastEvents", JSON.stringify(events));
+    }
+
+    return events;
   }
 }
 
