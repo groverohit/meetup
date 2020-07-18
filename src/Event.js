@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { PieChart, Pie, Tooltip, ResponsiveContainer } from "recharts";
 
 class Event extends Component {
   state = {
@@ -12,6 +13,19 @@ class Event extends Component {
       this.setState({ showDetails: false });
     }
   };
+
+  data = [
+    { name: "Reservations", value: this.props.event.yes_rsvp_count },
+    {
+      name: "Free Slots",
+      value: this.props.event.rsvp_limit - this.props.event.yes_rsvp_count,
+    },
+  ];
+
+  // getData = () => {
+  //   const data=[];
+  //   data.push({name: 'Reservations', value: this.props.event.yes_rsvp_count}});
+  // {name: 'Free Slots', value: {this.props.event.rsvp_limit - this.props.event.yes_rsvp_count}};};
 
   render() {
     return (
@@ -30,13 +44,28 @@ class Event extends Component {
             </p>
           )}
           <p className="event__Overview--peopleGoing">
-            {this.props.event.yes_rsvp_count}
+            People Going: {this.props.event.yes_rsvp_count}
           </p>
+          {this.props.event.yes_rsvp_count && this.props.event.rsvp_limit && (
+            <ResponsiveContainer height={200}>
+              <PieChart>
+                <Pie
+                  isAnimationActive={false}
+                  data={this.data}
+                  dataKey="value"
+                  outerRadius={80}
+                  fill="#8884d8"
+                  label
+                />
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          )}
           <button
             className="details-btn"
             onClick={() => this.handleShowDetails()}
           >
-            show details
+            Details
           </button>
         </div>
         {this.state.showDetails && (
